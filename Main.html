@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Lobotomy nightmare download</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        body {
+            background-image: url('BG.png'); 
+            background-size: 100% 200vw; 
+            background-color: royalblue;
+            background-blend-mode: multiply;
+        }
+
+        .text {
+            font-family: 'Pusab', sans-serif;
+            color: goldenrod;
+            position: absolute;
+            top: 18%;
+            left: 50%;
+            cursor: default;
+            text-align: center;
+            transform: translateX(-50%);
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        #LogoText {
+            position: absolute; 
+            top: 15%; 
+            transform: translateY(-50%); 
+            left: 50%;
+            margin-left: -350px;
+            width: 700px;
+            height: 200px; 
+            background-image: url('Lobotomy nightmare txt.png'); 
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+
+        #buttonWindows {
+            position: absolute; 
+            top: 40%; 
+            transform: translateY(-50%);
+            left: 50%;
+            margin-left: -125px;
+            width: 250px;
+            height: 70px; 
+            cursor: pointer; 
+            background-image: url('ButtonDownload.png');
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center center; 
+        }
+
+        #buttonAndroid {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+            left: 50%;
+            margin-left: -125px;
+            width: 250px;
+            height: 70px;
+            cursor: not-allowed;
+            background-image: url('ButtonGreen.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        #sprite {
+            width: 100px;
+            height: 100px;
+            background-image: url(favicon.png);
+            background-size: contain;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="sprite"></div>
+    <audio id="audio" src="fire in the hole.mp3"></audio>
+    <audio id="bonk" src="bonk.mp3"></audio>
+
+    <div id="LogoText"></div>
+    <h1 class="text">download</h1>
+    <div id="buttonWindows" onclick=Download4Windows()></div>
+    <div id="buttonAndroid" onclick=Download4Android()></div>
+
+    <script>
+            function Download4Windows() {
+            var link = document.createElement('a');
+                link.href = "https://drive.google.com/uc?export=download&id=1cA2sFC3egfH8jFFe5RI61fSCmHIZYtMM";
+            link.download = 'Lobotomy nightmare.zip';
+            link.type = 'application/zip';
+                document.body.appendChild(link); /* https://drive.google.com/file/d/1cA2sFC3egfH8jFFe5RI61fSCmHIZYtMM/view?usp=sharing */
+            link.click();
+            document.body.removeChild(link);
+        };
+
+         function Download4Android() {
+            var link = document.createElement('a');
+             link.href = 'https://drive.google.com/uc?export=download&id=1Mqs6uUBk2i7ohYhr6_QZL1ThH__E_vqX';
+            link.download = 'Lobotomy nightmare';
+            link.type = 'application/txt'; 
+             document.body.appendChild(link); /* https://drive.google.com/file/d/1Mqs6uUBk2i7ohYhr6_QZL1ThH__E_vqX/view?usp=drive_link */
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        var sprite = document.getElementById('sprite');
+        var bonk = document.getElementById('bonk');
+        sprite.style.left = '0px';
+        sprite.style.top = '0px';
+
+        var x = 0;
+        var y = 0;
+        var speedX = 3;
+        var speedY = 3.3;
+
+        var isVisible = true;
+
+        function animateSprite() {
+            x += speedX;
+            y += speedY;
+            sprite.style.left = x + 'px';
+            sprite.style.top = y + 'px';
+            var screenWidth = window.innerWidth;
+            var screenHeight = window.innerHeight;
+            if (x <= 0 || x + sprite.offsetWidth >= screenWidth) {
+                speedX *= -1;
+                if (isVisible) {
+                    bonk.play();
+                }
+                
+            }
+            if (y <= 0 || y + sprite.offsetHeight >= screenHeight) {
+                speedY *= -1;
+                if (isVisible) {
+                    bonk.play();
+                }
+            }
+            requestAnimationFrame(animateSprite);
+        }
+
+        animateSprite();
+
+        var audio = document.getElementById('audio');
+
+        sprite.addEventListener('click', function () {
+            sprite.style.display = 'none';
+            audio.play();
+            isVisible = false;
+
+            setTimeout(function () {
+                sprite.style.display = 'block';
+                sprite.style.left = '0px';
+                sprite.style.top = '0px';
+                isVisible = true;
+
+                animateSprite();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
